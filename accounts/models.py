@@ -1,12 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
-class Account(models.Model):
-    avatar = models.ImageField(verbose_name="Аватарка")
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+class Account(AbstractUser):
+    avatar = models.ImageField(verbose_name="Аватарка", blank=True)
 
     class Meta:
         verbose_name = "Аккаунт"
         verbose_name_plural = "Аккаунты"
+
+    def __str__(self):
+        return "{} {}".format(self.first_name, self.last_name)
